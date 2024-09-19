@@ -1,5 +1,6 @@
 const playBtn = document.querySelector('.play');
 const prevBtn = document.querySelector('.prev');
+const vinyl = document.querySelector('.vinyl');
 const nextBtn = document.querySelector('.next');
 const title = document.querySelector('.title');
 const cover = document.querySelector('.cover > img');
@@ -155,12 +156,14 @@ function playTrack() {
   audio.play();
   isPlaying = true;
   playBtn.classList.add('paused');
+  vinyl.classList.add('paused');
 }
 
 function pauseTrack() {
   audio.pause();
   isPlaying = false;
   playBtn.classList.remove('paused');
+  vinyl.classList.remove('paused');
 }
 
 playBtn.addEventListener('click', () => {
