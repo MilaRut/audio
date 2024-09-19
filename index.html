@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio player</title>
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="player">
+    <div class="vinyl">
+      <div class="cover">
+        <img src="./img/jeff.png" width="135" height="135" alt="">
+      </div>
+    </div>
+    <div class="song-title">
+      <marquee class="title">Jefferson Airplane - White Rabbit</marquee>
+    </div>
+    <div class="progress-wrapper">
+      <span class="dur">05:08</span>
+      <input type="range" id="progress" value="0" step="1">
+      <span class="rem">00:00</span>
+    </div>
+    <div class="button-wrapper">
+      <button type="button" class="button prev">
+        <span class="icon">&#9668;&#9668;</span>
+      </button>
+      <button type="button" class="button play">
+        <span class="play-icon">&#9658;</span>
+        <span class="pause-icon"><b>I I</b></span>
+      </button>
+      <button type="button" class="button next">
+        <span class="icon">&#9658;&#9658;</span>
+      </button>
+    </div>
+    <div class="volume-wrapper">
+      <img src="./img/vol-minus.svg" width="25" height="25" alt="Quieter.">
+      <input type="range" id="volume" value="100" step="1">
+      <img src="./img/vol-plus.svg" width="25" height="25" alt="Louder.">
+    </div>
+    <audio src="./audio/track-1.mp3"></audio>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
