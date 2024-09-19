@@ -181,10 +181,15 @@ img {
   transform: translateX(-23px) translateY(-2px) rotate(15deg);
 }
 
+.tonearm.rotated img {
+  animation: shake 0.7s ease-in-out infinite;
+}
+
 .tonearm img {
   width: 100%;
   height: auto;
   object-fit: contain;
+  animation-play-state: paused;
 }
 
 .button-wrapper {
@@ -220,6 +225,7 @@ img {
   content: "";
   display: block;
   font-size: 30px;
+  line-height: 30px;
   text-decoration: none;
   text-shadow: 0px -1px 1px #bdb5b4, 1px 1px 1px white;
 }
@@ -270,6 +276,7 @@ img {
 
 .prev span {
   font-size: 20px;
+  line-height: 20px;
   margin-right: 5px;
 }
 .next span{
@@ -486,5 +493,15 @@ input[type="range"]:focus::-moz-range-thumb{
   }
   100% {
     transform: translateX(-100%); /* Конечная позиция (вне экрана слева) */
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: scale(1.003) rotate(0.1deg);
+  }
+  
+  100% {
+    transform: none;
   }
 }
