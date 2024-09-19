@@ -41,6 +41,7 @@ img {
   min-height: calc(100 * var(--vh, 1vh));
   background: url('./img/bg-main.jpg') center no-repeat;
   background-size: cover;
+  overflow: hidden;
 }
 
 .wrapper::after {
