@@ -10,39 +10,65 @@
 </head>
 
 <body>
-
-  <div class="player">
-    <div class="vinyl">
-      <div class="cover">
-        <img src="./img/jeff.png" width="135" height="135" alt="">
+  <div class="preloader">
+    <h2>Relax and enjoy the music</h2>
+  </div>
+  <div class="wrapper" style="display: none;">
+    <main class="main">
+      <div class="player">
+        <div class="vinyl">
+          <div class="cover">
+            <img src="./img/jeff.png" width="135" height="135" alt="">
+          </div>
+        </div>
+        <div class="song-title">
+          <marquee class="title">Jefferson Airplane - White Rabbit | 05:08</marquee>
+        </div>
+        <div class="progress-wrapper">
+          <span class="dur">05:08</span>
+          <input type="range" id="progress" value="0" step="1">
+          <span class="progr">00:00</span>
+        </div>
+        <div class="button-wrapper">
+          <button type="button" class="button prev">
+            <span class="icon">&#9668;&#9668;</span>
+          </button>
+          <button type="button" class="button play">
+            <span class="play-icon">&#9658;</span>
+            <span class="pause-icon"><b>I I</b></span>
+          </button>
+          <button type="button" class="button next">
+            <span class="icon">&#9658;&#9658;</span>
+          </button>
+        </div>
+        <div class="volume-wrapper">
+          <img src="./img/svg/vol-minus.svg" width="25" height="25" alt="Quieter.">
+          <input type="range" id="volume" value="100" step="1">
+          <img src="./img/svg/vol-plus.svg" width="25" height="25" alt="Louder.">
+        </div>
+        <audio src="./audio/track-1.mp3"></audio>
       </div>
-    </div>
-    <div class="song-title">
-      <marquee class="title">Jefferson Airplane - White Rabbit</marquee>
-    </div>
-    <div class="progress-wrapper">
-      <span class="dur">05:08</span>
-      <input type="range" id="progress" value="0" step="1">
-      <span class="rem">00:00</span>
-    </div>
-    <div class="button-wrapper">
-      <button type="button" class="button prev">
-        <span class="icon">&#9668;&#9668;</span>
-      </button>
-      <button type="button" class="button play">
-        <span class="play-icon">&#9658;</span>
-        <span class="pause-icon"><b>I I</b></span>
-      </button>
-      <button type="button" class="button next">
-        <span class="icon">&#9658;&#9658;</span>
-      </button>
-    </div>
-    <div class="volume-wrapper">
-      <img src="./img/vol-minus.svg" width="25" height="25" alt="Quieter.">
-      <input type="range" id="volume" value="100" step="1">
-      <img src="./img/vol-plus.svg" width="25" height="25" alt="Louder.">
-    </div>
-    <audio src="./audio/track-1.mp3"></audio>
+    </main>
+    <footer class="footer">
+      <ul class="footer__list">
+        <li class="footer__item">
+          <a href="https://github.com/MilaRut" class="footer__link">
+            <img class="footer__img" src="./img/svg/github-white.svg" width="40" height="40" alt="GitHub.">
+          </a>
+        </li>
+        <li class="footer__item">
+          <a href="https://rs.school/courses/javascript-preschool-ru" class="footer__link">
+            <div class="footer__img-wrapper">
+              <img class="footer__img" src="./img/svg/rss-logo.svg" width="40" height="40" alt="RS School.">
+            </div>
+          </a>
+        </li>
+        <li class="footer__item">
+          <p class="footer__date">2024</p>
+        </li>
+      </ul>
+
+    </footer>
   </div>
 
 

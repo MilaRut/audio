@@ -7,25 +7,43 @@
   font-display: swap;
 }
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   user-select: none;
 }
 
+html,
 body {
-  position: relative;
-  background: url('./img/bg-main.jpg') center no-repeat;
-  background-size: cover;
-  width: 100%;
   min-height: 100vh;
-  backdrop-filter: blur(5px);
-  padding: 80px;
   font-family: "Moscow", monospace;
 }
 
-body::after {
+body {
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* stylelint-disable-next-line */
+  min-height: calc(100 * var(--vh, 1vh));
+  background: url('./img/bg-main.jpg') center no-repeat;
+  background-size: cover;
+}
+
+.wrapper::after {
   position: absolute;
   content: "";
   width: 100%;
@@ -34,6 +52,43 @@ body::after {
   left: 0;
   background: radial-gradient(circle, rgba(184,184,184,0) 50%, rgba(40,40,40,1) 100%);
   pointer-events: none;
+  backdrop-filter: blur(5px);
+}
+
+.main {
+  flex-grow: 1;
+  padding: 30px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: black;
+  z-index: 1000;
+  background: url("./img/bg-loader.jpg") center no-repeat;
+  background-size: cover;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.preloader.is-hidden {
+  opacity: 0;
+}
+
+.preloader h2 {
+  font-size: 48px;
+  color: #ffffff;
+  text-align: center;
+  padding-bottom: 40px;
 }
 
 .player {
@@ -43,7 +98,8 @@ body::after {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   margin: 0 auto;
   background-image: -webkit-linear-gradient(top, #edecec, #cecbc9);
   background-image: linear-gradient(top, #edecec, #cecbc9);
@@ -56,8 +112,10 @@ body::after {
   position: relative;
   background: url('./img/vinyl.png') center no-repeat;
   background-size: 100%;
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,8 +171,7 @@ body::after {
   align-items: center;
   gap: 20px;
   z-index: 100;
-  width:400px;
-  height: 100px;
+  padding: 20px 0;
   background-image: linear-gradient(top, #edecec, #cecbc9);
 }
 
@@ -201,7 +258,8 @@ body::after {
 .song-title {
   display: flex;
   align-items: center;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   height: 40px;
   border-radius: 10px;
   border: 3px solid #a9a9a9;
@@ -235,10 +293,11 @@ marquee {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  width: 100%;
 }
 
 .dur,
-.rem {
+.progr {
   color: #fafafa;
   font-size: 18px;
   text-shadow: 1px 1px 1px #adadad;
@@ -250,7 +309,7 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: pointer;
-  width: 300px;
+  width: 100%;
   box-shadow: 1px 1px 5px 0 #555555
 }
 
@@ -282,7 +341,7 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]:focus::-webkit-slider-thumb {
   outline: 3px solid #999999;
   outline-offset: 0.125rem;
-  box-shadow: 1px 1px 5px 0 #555555;
+  box-shadow: 1px 1px 5px 0 #555555, inset 1px 1px 3px #6e6e6e;
 }
 
 /*********** Firefox styles ***********/
@@ -312,10 +371,56 @@ input[type="range"]:focus::-moz-range-thumb{
   justify-content: center;
   align-items: center;
   gap: 20px;
+  width: 100%;
+  max-width: 300px;
 }
 
-.volume-wrapper input {
-  width: 250px;
+.footer {
+  position: relative;
+  padding: 10px 0;
+  flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.footer__list {
+  max-width: 1000px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.footer__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.footer__date,
+.footer__link {
+  font-family: sans-serif;
+  font-size: 24px;
+  color: #c9c9c9;
+  text-decoration: none;
+}
+
+.footer__link:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 30px 15px;
+  }
+
+  .progress-wrapper {
+    flex-direction: column;
+  }
 }
 
 @keyframes rotate {

@@ -5,70 +5,71 @@ const title = document.querySelector('.title');
 const cover = document.querySelector('.cover > img');
 const progress = document.querySelector('#progress');
 const volume = document.querySelector('#volume');
+const preloader = document.querySelector('.preloader');
 const tracks = [
   {
     src: "track-1",
-    title: "Jefferson Airplane - White Rabbit",
+    title: "Jefferson Airplane - White Rabbit | 05:08",
     cover: "jeff.png"
   },
   {
     src: "track-2",
-    title: "The Pixies - Where is my mind",
+    title: "The Pixies - Where is my mind | 03:32",
     cover: "pixies.png"
   },
   {
     src: "track-3",
-    title: "System Of A Down - Chop Suey",
+    title: "System Of A Down - Chop Suey | 03:25",
     cover: "chop-suey.png"
   },
   {
     src: "track-4",
-    title: "Null Positiv - Insomnia",
+    title: "Null Positiv - Insomnia | 04:05",
     cover: "null.png"
   },
   {
     src: "track-5",
-    title: "Arch Enemy - Reason to believe",
+    title: "Arch Enemy - Reason to believe | 04:47",
     cover: "reason.png"
   },
   {
     src: "track-6",
-    title: "Slipknot - Vermillion, Pt.2",
+    title: "Slipknot - Vermillion, Pt.2 | 03:44",
     cover: "verm.png"
   },
   {
     src: "track-7",
-    title: "Hozier - In The Woods Somewhere",
+    title: "Hozier - In The Woods Somewhere | 05:31",
     cover: "hoz.png"
   },
   {
     src: "track-8",
-    title: "Otep - Lie",
+    title: "Otep - Lie | 03:34",
     cover: "otep.png"
   },
   {
     src: "track-9",
-    title: "Dropkick Murphys - Surrender",
+    title: "Dropkick Murphys - Surrender | 03:15",
     cover: "drop.png"
   },
   {
     src: "track-10",
-    title: "Null Positiv - Freiheit",
+    title: "Null Positiv - Freiheit | 04:08",
     cover: "null.png"
   },
   {
     src: "track-11",
-    title: "System Of A Down - Aerials",
+    title: "System Of A Down - Aerials | 03:55",
     cover: "toxi.png"
   },
   {
     src: "track-12",
-    title: "Slipknot - Psychosocial",
+    title: "Slipknot - Psychosocial | 04:01",
     cover: "psy.png"
   },
   {
     src: "track-13",
-    title: "Arch Enemy - No Gods, No Masters",
+    title: "Arch Enemy - No Gods, No Masters | 04:14",
     cover: "nogods.png"
   }
 ];
@@ -101,18 +102,17 @@ function loadTrack(index) {
   audio.addEventListener('timeupdate', () => {
     if (duration) { // Проверяем, что duration определена
       const currentTime = audio.currentTime;
-      const remainingTime = duration - currentTime;
 
       const durationMinutes = String(Math.floor(duration / 60)).padStart(2, '0');
       const durationSeconds = String(Math.floor(duration % 60)).padStart(2, '0');
 
-      const formattedMinutes = String(Math.floor(remainingTime / 60)).padStart(2, '0');
-      const formattedSeconds = String(Math.floor(remainingTime % 60)).padStart(2, '0');
+      const progressMinutes = String(Math.floor(audio.currentTime / 60)).padStart(2, '0');
+      const progressSeconds = String(Math.floor(audio.currentTime % 60)).padStart(2, '0');
 
       document.querySelector('.dur').textContent = `${durationMinutes}:${durationSeconds}`;
-      document.querySelector('.rem').textContent = `${formattedMinutes}:${formattedSeconds}`;
+      document.querySelector('.progr').textContent = `${progressMinutes}:${progressSeconds}`;
 
-      if (remainingTime <= 0) {
+      if (currentTime === duration) {
         playNext();
       }
     }
@@ -124,11 +124,28 @@ function loadTrack(index) {
   audio.addEventListener('timeupdate', () => {
     progress.value = (audio.currentTime / audio.duration) * 100 || 0;
   });
-  
+
   progress.addEventListener('input', () => {
     audio.currentTime = (progress.value / 100) * audio.duration;
   });
-  
+
+  // Добавляем обработчики событий для ползунка
+  progress.addEventListener('mousedown', () => {
+    if (isPlaying) {
+      pauseTrack(); // Приостанавливаем воспроизведение при перетаскивании
+    }
+  });
+
+  progress.addEventListener('mouseup', () => {
+    // Устанавливаем текущее время аудио в соответствии с положением ползунка
+    audio.currentTime = (progress.value / 100) * audio.duration;
+
+    // Если аудио было приостановлено, возобновляем воспроизведение
+    if (!isPlaying) {
+      playTrack(); // Если трек был приостановлен, продолжаем воспроизведение
+    }
+  });
+
   volume.addEventListener('input', () => {
     audio.volume = volume.value / 100;
   });
@@ -175,3 +192,11 @@ function playNext() {
   loadTrack(currentInd); // Загружаем новый трек
   playTrack(); // Начинаем воспроизведение
 }
+
+window.addEventListener('load', () => {
+
+  setTimeout(() => {
+    preloader.classList.add('is-hidden');
+    document.querySelector('.wrapper').style.display = 'flex';
+  }, 2000);
+})
