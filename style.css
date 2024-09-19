@@ -489,10 +489,10 @@ input[type="range"]:focus::-moz-range-thumb{
 
 @keyframes scroll {
   0% {
-    transform: translateX(100%); /* Начальная позиция (вне экрана справа) */
+    transform: translateX(100%);
   }
   100% {
-    transform: translateX(-100%); /* Конечная позиция (вне экрана слева) */
+    transform: translateX(-100%);
   }
 }
 

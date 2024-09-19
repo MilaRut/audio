@@ -1,7 +1,7 @@
 const playBtn = document.querySelector('.play');
 const prevBtn = document.querySelector('.prev');
-const vinyl = document.querySelector('.vinyl');
 const nextBtn = document.querySelector('.next');
+const vinyl = document.querySelector('.vinyl');
 const title = document.querySelector('.title');
 const cover = document.querySelector('.cover > img');
 const tonearm = document.querySelector('.tonearm');
@@ -83,28 +83,22 @@ let isPlaying = false;
 let audio;
 
 function loadTrack(index) {
-  // Если уже есть аудио, останавливаем его
   if (audio) {
     audio.pause();
   }
 
-  // Создаем новый объект Audio
   audio = new Audio(`./audio/${tracks[index].src}.mp3`);
   title.textContent = tracks[index].title;
   cover.setAttribute('src', `./img/${tracks[index].cover}`);
 
-  // Переменная для хранения длительности трека
   let duration;
 
-  // Добавляем обработчик события loadedmetadata
   audio.addEventListener('loadedmetadata', () => {
-    // Получаем длительность трека в секундах
     duration = audio.duration;
   });
 
-  // Добавляем обработчик события timeupdate
   audio.addEventListener('timeupdate', () => {
-    if (duration) { // Проверяем, что duration определена
+    if (duration) {
       const currentTime = audio.currentTime;
 
       const durationMinutes = String(Math.floor(duration / 60)).padStart(2, '0');
@@ -122,7 +116,6 @@ function loadTrack(index) {
     }
   });
 
-  // Запускаем загрузку метаданных
   audio.load();
 
   audio.addEventListener('timeupdate', () => {
@@ -133,41 +126,41 @@ function loadTrack(index) {
     audio.currentTime = (progress.value / 100) * audio.duration;
   });
 
-  // Добавляем обработчики событий для ползунка
   progress.addEventListener('mousedown', () => {
     if (isPlaying) {
-      pauseTrack(); // Приостанавливаем воспроизведение при перетаскивании
+      pauseTrack();
+    }
+  });
+
+  progress.addEventListener('touchstart', () => {
+    if (isPlaying) {
+      pauseTrack();
     }
   });
 
   progress.addEventListener('mouseup', () => {
-    // Устанавливаем текущее время аудио в соответствии с положением ползунка
     audio.currentTime = (progress.value / 100) * audio.duration;
 
-    // Если аудио было приостановлено, возобновляем воспроизведение
     if (!isPlaying) {
-      playTrack(); // Если трек был приостановлен, продолжаем воспроизведение
+      playTrack();
     }
   });
 
-  // Установка начального значения громкости
   audio.volume = volume.value / 100;
 
-  // Обработчик события для изменения громкости через ползунок
   volume.addEventListener('input', () => {
     audio.volume = volume.value / 100;
   });
 
-  // Обработчик события для кнопки уменьшения громкости
   volumeMinus.addEventListener('click', () => {
-    volume.value = Math.max(0, volume.value - 5); // Убедитесь, что значение не меньше 0
-    audio.volume = volume.value / 100; // Обновляем громкость
+    volume.value = Math.max(0, volume.value - 5);
+    audio.volume = volume.value / 100;
   });
 
-  // Обработчик события для кнопки увеличения громкости
+
   volumePlus.addEventListener('click', () => {
-    volume.value = Math.min(100, parseInt(volume.value) + 5); // Убедитесь, что значение не больше 100
-    audio.volume = volume.value / 100; // Обновляем громкость
+    volume.value = Math.min(100, parseInt(volume.value) + 5);
+    audio.volume = volume.value / 100;
   });
 }
 
@@ -189,7 +182,7 @@ function pauseTrack() {
 
 playBtn.addEventListener('click', () => {
   if (!audio) {
-    loadTrack(currentInd); // Загружаем трек только один раз
+    loadTrack(currentInd);
   }
 
   if (isPlaying) {
@@ -200,21 +193,21 @@ playBtn.addEventListener('click', () => {
 });
 
 prevBtn.addEventListener('click', () => {
-  currentInd = (currentInd - 1 + tracks.length) % tracks.length; // Обновляем индекс
-  loadTrack(currentInd); // Загружаем новый трек
-  playTrack(); // Начинаем воспроизведение
+  currentInd = (currentInd - 1 + tracks.length) % tracks.length;
+  loadTrack(currentInd);
+  playTrack();
 });
 
 nextBtn.addEventListener('click', () => {
-  currentInd = (currentInd + 1) % tracks.length; // Обновляем индекс
-  loadTrack(currentInd); // Загружаем новый трек
-  playTrack(); // Начинаем воспроизведение
+  currentInd = (currentInd + 1) % tracks.length;
+  loadTrack(currentInd);
+  playTrack();
 });
 
 function playNext() {
-  currentInd = (currentInd + 1) % tracks.length; // Обновляем индекс
-  loadTrack(currentInd); // Загружаем новый трек
-  playTrack(); // Начинаем воспроизведение
+  currentInd = (currentInd + 1) % tracks.length;
+  loadTrack(currentInd);
+  playTrack();
 }
 
 window.addEventListener('load', () => {
@@ -224,3 +217,11 @@ window.addEventListener('load', () => {
     document.querySelector('.wrapper').style.display = 'flex';
   }, 2000);
 })
+
+console.log(`
+  Оценка работы: 60 баллов
+  все соответствует ТЗ, я сама кайфую от результата :)
+  надеюсь, тебе понравится мой плеер
+  по всем вопросам можно писать мне в дискорд (https://discordapp.com/users/932258504213938207) или тг (https://t.me/degusyanz)
+  всем хорошего музла! :)
+  `)
