@@ -4,6 +4,7 @@ const vinyl = document.querySelector('.vinyl');
 const nextBtn = document.querySelector('.next');
 const title = document.querySelector('.title');
 const cover = document.querySelector('.cover > img');
+const tonearm = document.querySelector('.tonearm');
 const progress = document.querySelector('#progress');
 const volume = document.querySelector('#volume');
 const preloader = document.querySelector('.preloader');
@@ -161,16 +162,12 @@ function loadTrack(index) {
   volumeMinus.addEventListener('click', () => {
     volume.value = Math.max(0, volume.value - 5); // Убедитесь, что значение не меньше 0
     audio.volume = volume.value / 100; // Обновляем громкость
-    console.log(volume.value);
-    console.log(audio.volume);
   });
 
   // Обработчик события для кнопки увеличения громкости
   volumePlus.addEventListener('click', () => {
     volume.value = Math.min(100, parseInt(volume.value) + 5); // Убедитесь, что значение не больше 100
     audio.volume = volume.value / 100; // Обновляем громкость
-    console.log(volume.value);
-    console.log(audio.volume);
   });
 }
 
@@ -179,6 +176,7 @@ function playTrack() {
   isPlaying = true;
   playBtn.classList.add('paused');
   vinyl.classList.remove('paused');
+  tonearm.classList.add('rotated');
 }
 
 function pauseTrack() {
@@ -186,6 +184,7 @@ function pauseTrack() {
   isPlaying = false;
   playBtn.classList.remove('paused');
   vinyl.classList.add('paused');
+  tonearm.classList.remove('rotated');
 }
 
 playBtn.addEventListener('click', () => {

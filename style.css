@@ -165,18 +165,24 @@ img {
 }
 
 .tonearm {
-  width: 120px;
-  height: 440px;
+  width: 100%;
+  max-width: 120px;
+  height: auto;
   overflow: hidden;
   position: absolute;
   top: -30px;
-  right: -50px;
-  transform: rotate(10deg);
+  right: -15px;
+  z-index: 10;
+  transition: transform 0.6s ease-in-out;
+}
+
+.tonearm.rotated {
+  transform: translateX(-23px) translateY(-2px) rotate(15deg);
 }
 
 .tonearm img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
 }
 
@@ -452,6 +458,12 @@ input[type="range"]:focus::-moz-range-thumb{
 
   .progress-wrapper {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 550px) {
+  .tonearm {
+    max-width: 23vw;
   }
 }
 
