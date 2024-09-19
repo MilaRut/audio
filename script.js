@@ -7,6 +7,8 @@ const cover = document.querySelector('.cover > img');
 const progress = document.querySelector('#progress');
 const volume = document.querySelector('#volume');
 const preloader = document.querySelector('.preloader');
+const volumePlus = document.querySelector('.vol-plus');
+const volumeMinus = document.querySelector('.vol-minus');
 const tracks = [
   {
     src: "track-1",
@@ -147,8 +149,28 @@ function loadTrack(index) {
     }
   });
 
+  // Установка начального значения громкости
+  audio.volume = volume.value / 100;
+
+  // Обработчик события для изменения громкости через ползунок
   volume.addEventListener('input', () => {
     audio.volume = volume.value / 100;
+  });
+
+  // Обработчик события для кнопки уменьшения громкости
+  volumeMinus.addEventListener('click', () => {
+    volume.value = Math.max(0, volume.value - 5); // Убедитесь, что значение не меньше 0
+    audio.volume = volume.value / 100; // Обновляем громкость
+    console.log(volume.value);
+    console.log(audio.volume);
+  });
+
+  // Обработчик события для кнопки увеличения громкости
+  volumePlus.addEventListener('click', () => {
+    volume.value = Math.min(100, parseInt(volume.value) + 5); // Убедитесь, что значение не больше 100
+    audio.volume = volume.value / 100; // Обновляем громкость
+    console.log(volume.value);
+    console.log(audio.volume);
   });
 }
 
@@ -156,14 +178,14 @@ function playTrack() {
   audio.play();
   isPlaying = true;
   playBtn.classList.add('paused');
-  vinyl.classList.add('paused');
+  vinyl.classList.remove('paused');
 }
 
 function pauseTrack() {
   audio.pause();
   isPlaying = false;
   playBtn.classList.remove('paused');
-  vinyl.classList.remove('paused');
+  vinyl.classList.add('paused');
 }
 
 playBtn.addEventListener('click', () => {

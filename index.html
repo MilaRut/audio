@@ -16,13 +16,13 @@
   <div class="wrapper" style="display: none;">
     <main class="main">
       <div class="player">
-        <div class="vinyl">
+        <div class="vinyl paused">
           <div class="cover">
             <img src="./img/jeff.png" width="135" height="135" alt="">
           </div>
         </div>
         <div class="song-title">
-          <marquee class="title">Jefferson Airplane - White Rabbit | 05:08</marquee>
+          <span class="title">Jefferson Airplane - White Rabbit | 05:08</span>
         </div>
         <div class="progress-wrapper">
           <span class="dur">05:08</span>
@@ -42,9 +42,13 @@
           </button>
         </div>
         <div class="volume-wrapper">
-          <img src="./img/svg/vol-minus.svg" width="25" height="25" alt="Quieter.">
+          <button type="button" class="vol-control vol-minus">
+            <img src="./img/svg/vol-minus.svg" width="25" height="25" alt="Quieter.">
+          </button>
           <input type="range" id="volume" value="100" step="1">
-          <img src="./img/svg/vol-plus.svg" width="25" height="25" alt="Louder.">
+          <button type="button" class="vol-control vol-plus">
+            <img src="./img/svg/vol-plus.svg" width="25" height="25" alt="Louder.">
+          </button>
         </div>
         <audio src="./audio/track-1.mp3"></audio>
       </div>
