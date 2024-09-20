@@ -146,6 +146,14 @@ function loadTrack(index) {
     }
   });
 
+  progress.addEventListener('touchend', () => {
+    audio.currentTime = (progress.value / 100) * audio.duration;
+
+    if (!isPlaying) {
+      playTrack();
+    }
+  });
+
   audio.volume = volume.value / 100;
 
   volume.addEventListener('input', () => {
